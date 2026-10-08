@@ -94,6 +94,8 @@ public class TextSegmentWindow extends JInternalFrame implements Observer {
       Simulator.getInstance().addObserver(this);
       Globals.getSettings().addObserver(this);
       contentPane = this.getContentPane();
+      // Dark background even when Text Segment is empty
+      contentPane.setBackground(new Color(0x1E1E1E));
       codeHighlighting = true;
       breakpointsEnabled = true;
       programArgumentsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -203,6 +205,11 @@ public class TextSegmentWindow extends JInternalFrame implements Observer {
 
       tableScroller = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
             ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+      // Dark background for empty Text Segment area
+      tableScroller.getViewport().setBackground(new Color(0x1E1E1E));
+      tableScroller.setBackground(new Color(0x1E1E1E));
+
       contentPane.add(tableScroller);
       if (Globals.getSettings().getProgramArguments()) {
          addProgramArgumentsPanel();

@@ -12,7 +12,6 @@ import javax.swing.undo.*;
 import java.text.*;
 import java.util.*;
 import java.io.*;
-import java.awt.Color;
 
 /*
 Copyright (c) 2003-2011,  Pete Sanderson and Kenneth Vollmar
@@ -184,12 +183,31 @@ public class EditPane extends JPanel implements Observer {
                }
             });
 
+      // Dark theme for editor status bar
       JPanel editInfo = new JPanel(new BorderLayout());
+      editInfo.setBackground(new Color(0x252526));
+
+      // Caret position label
       caretPositionLabel = new JLabel();
-      caretPositionLabel.setToolTipText("Tracks the current position of the text editing cursor.");
+      caretPositionLabel.setForeground(new Color(0xD4D4D4));
+      caretPositionLabel.setBackground(new Color(0x252526));
+      caretPositionLabel.setOpaque(true);
+      caretPositionLabel.setBorder(
+            BorderFactory.createEmptyBorder(4, 10, 4, 10));
+
+      caretPositionLabel.setToolTipText(
+            "Tracks the current position of the text editing cursor.");
       displayCaretPosition(new Point());
+
+      // Show Line Numbers checkbox
+      showLineNumbers.setBackground(new Color(0x252526));
+      showLineNumbers.setForeground(new Color(0xD4D4D4));
+      showLineNumbers.setOpaque(true);
+
+      // Add components
       editInfo.add(caretPositionLabel, BorderLayout.WEST);
       editInfo.add(showLineNumbers, BorderLayout.CENTER);
+
       this.add(editInfo, BorderLayout.SOUTH);
    }
 

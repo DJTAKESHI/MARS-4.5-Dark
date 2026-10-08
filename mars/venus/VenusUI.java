@@ -8,6 +8,7 @@ import java.awt.event.*;
 import javax.swing.event.*;
 import java.io.*;
 import java.net.*;
+import javax.swing.UIManager;
 
 /*
 Copyright (c) 2003-2013,  Pete Sanderson and Kenneth Vollmar
@@ -120,6 +121,16 @@ public class VenusUI extends JFrame {
 
    public VenusUI(String s) {
       super(s);
+
+      // Dark theme for scrollbars
+      UIManager.put("ScrollBar.background", new javax.swing.plaf.ColorUIResource(0x1E1E1E));
+      UIManager.put("ScrollBar.foreground", new javax.swing.plaf.ColorUIResource(0xD4D4D4));
+      UIManager.put("ScrollBar.thumb", new javax.swing.plaf.ColorUIResource(0x424242));
+      UIManager.put("ScrollBar.thumbHighlight", new javax.swing.plaf.ColorUIResource(0x555555));
+      UIManager.put("ScrollBar.thumbShadow", new javax.swing.plaf.ColorUIResource(0x303030));
+      UIManager.put("ScrollBar.track", new javax.swing.plaf.ColorUIResource(0x1E1E1E));
+      UIManager.put("ScrollBar.trackHighlight", new javax.swing.plaf.ColorUIResource(0x252526));
+
       mainUI = this;
       Globals.setGui(this);
       this.editor = new Editor(this);
@@ -172,6 +183,17 @@ public class VenusUI extends JFrame {
       // thus are
       // not visible here.
 
+      // Dark theme for internal frame title bars
+      UIManager.put("InternalFrame.activeTitleBackground",
+            new javax.swing.plaf.ColorUIResource(0x252526));
+      UIManager.put("InternalFrame.activeTitleForeground",
+            new javax.swing.plaf.ColorUIResource(0xD4D4D4));
+
+      UIManager.put("InternalFrame.inactiveTitleBackground",
+            new javax.swing.plaf.ColorUIResource(0x2D2D30));
+      UIManager.put("InternalFrame.inactiveTitleForeground",
+            new javax.swing.plaf.ColorUIResource(0xAAAAAA));
+
       registersTab = new RegistersWindow();
       coprocessor1Tab = new Coprocessor1Window();
       coprocessor0Tab = new Coprocessor0Window();
@@ -201,8 +223,13 @@ public class VenusUI extends JFrame {
       toolbar = this.setUpToolBar();
 
       JPanel jp = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+      // Dark theme for toolbar container
+      jp.setBackground(new Color(0x252526));
+
       jp.add(toolbar);
       jp.add(RunSpeedPanel.getInstance());
+
       JPanel center = new JPanel(new BorderLayout());
       center.add(jp, BorderLayout.NORTH);
       center.add(horizonSplitter);

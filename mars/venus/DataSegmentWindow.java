@@ -11,7 +11,6 @@ import java.util.*;
 import javax.swing.table.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
-import java.awt.Color;
 
 /*
 Copyright (c) 2003-2013,  Pete Sanderson and Kenneth Vollmar
@@ -118,8 +117,18 @@ public class DataSegmentWindow extends JInternalFrame implements Observer {
       userOrKernelMode = USER_MODE;
       addressHighlighting = false;
       contentPane = this.getContentPane();
+
+      // Dark background for Data Segment
+      contentPane.setBackground(new Color(0x1E1E1E));
+
       tablePanel = new JPanel(new GridLayout(1, 2, 10, 0));
       JPanel features = new JPanel();
+
+      features.setBackground(new Color(0x252526));
+      features.setForeground(new Color(0xD4D4D4));
+
+      tablePanel.setBackground(new Color(0x1E1E1E));
+
       Toolkit tk = Toolkit.getDefaultToolkit();
       Class cs = this.getClass();
       try {
@@ -143,6 +152,10 @@ public class DataSegmentWindow extends JInternalFrame implements Observer {
 
       initializeBaseAddressChoices();
       baseAddressSelector = new JComboBox();
+
+      baseAddressSelector.setBackground(new Color(0x2D2D30));
+      baseAddressSelector.setForeground(new Color(0xD4D4D4));
+
       baseAddressSelector.setModel(new CustomComboBoxModel(displayBaseAddressChoices));
       baseAddressSelector.setEditable(false);
       baseAddressSelector.setSelectedIndex(defaultBaseAddressIndex);
@@ -158,6 +171,7 @@ public class DataSegmentWindow extends JInternalFrame implements Observer {
 
       addButtonActionListenersAndInitialize();
       JPanel navButtons = new JPanel(new GridLayout(1, 4));
+      navButtons.setBackground(new Color(0x252526));
       navButtons.add(prevButton);
       navButtons.add(nextButton);
       features.add(navButtons);
@@ -166,6 +180,8 @@ public class DataSegmentWindow extends JInternalFrame implements Observer {
          features.add(choosers[i]);
       }
       asciiDisplayCheckBox = new JCheckBox("ASCII", asciiDisplay);
+      asciiDisplayCheckBox.setBackground(new Color(0x252526));
+      asciiDisplayCheckBox.setForeground(new Color(0xD4D4D4));
       asciiDisplayCheckBox
             .setToolTipText("Display data segment values in ASCII (overrides Hexadecimal Values setting)");
       asciiDisplayCheckBox.addItemListener(
@@ -486,6 +502,11 @@ public class DataSegmentWindow extends JInternalFrame implements Observer {
       }
       dataTableScroller = new JScrollPane(dataTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
             ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+      // Dark theme for empty Data Segment area
+      dataTableScroller.getViewport().setBackground(new Color(0x1E1E1E));
+      dataTableScroller.setBackground(new Color(0x1E1E1E));
+
       return dataTableScroller;
    }
 
