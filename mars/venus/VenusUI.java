@@ -682,6 +682,41 @@ public class VenusUI extends JFrame {
       // experiment with popup menu for settings. 3 Aug 2006 PS
       // setupPopupMenu();
 
+      // ① Dropdown menu selection colors
+      UIManager.put("MenuItem.selectionBackground", new Color(0x37373D));
+      UIManager.put("MenuItem.selectionForeground", Color.WHITE);
+
+      UIManager.put("CheckBoxMenuItem.selectionBackground", new Color(0x37373D));
+      UIManager.put("CheckBoxMenuItem.selectionForeground", Color.WHITE);
+
+      UIManager.put("Menu.selectionBackground", new Color(0x37373D));
+      UIManager.put("Menu.selectionForeground", Color.WHITE);
+
+      // Dark theme for dropdown menus
+      for (int i = 0; i < menuBar.getMenuCount(); i++) {
+         JMenu menu = menuBar.getMenu(i);
+
+         if (menu == null)
+            continue;
+
+         JPopupMenu popup = menu.getPopupMenu();
+         popup.setBackground(new Color(0x252526));
+         popup.setForeground(new Color(0xD4D4D4));
+
+         for (Component component : popup.getComponents()) {
+            if (component instanceof JMenuItem) {
+               JMenuItem item = (JMenuItem) component;
+
+               item.setOpaque(true);
+               item.setBackground(new Color(0x252526));
+               item.setForeground(new Color(0xD4D4D4));
+            } else if (component instanceof JSeparator) {
+               component.setBackground(new Color(0x252526));
+               component.setForeground(new Color(0x3C3C3C));
+            }
+         }
+      }
+
       return menuBar;
    }
 

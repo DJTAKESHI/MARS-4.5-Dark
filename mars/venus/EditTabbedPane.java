@@ -67,6 +67,7 @@ public class EditTabbedPane extends JTabbedPane {
       this.fileOpener = new FileOpener(editor);
       this.mainPane = mainPane;
       this.editor.setEditTabbedPane(this);
+
       // Dark theme for editor tabs
       javax.swing.UIManager.put(
             "TabbedPane.selected",
@@ -75,8 +76,28 @@ public class EditTabbedPane extends JTabbedPane {
             "TabbedPane.foreground",
             new Color(0xD4D4D4));
 
-      this.setBackground(new Color(0x252526));
+      // Dark theme for tab content area
+      javax.swing.UIManager.put(
+            "TabbedPane.contentAreaColor",
+            new Color(0x1E1E1E));
+      javax.swing.UIManager.put(
+            "TabbedPane.background",
+            new Color(0x252526));
+
+      this.setBackground(new Color(0x1E1E1E));
+      this.setOpaque(true);
       this.setForeground(new Color(0xD4D4D4));
+
+      // Customize the inner editor tab pane
+      // this.setUI(new javax.swing.plaf.metal.MetalTabbedPaneUI() {
+      // @Override
+      // protected void paintContentBorder(
+      // Graphics g,
+      // int tabPlacement,
+      // int selectedIndex) {
+      // // Do not paint the default Metal content border
+      // }
+      // });
 
       this.addChangeListener(
             new ChangeListener() {
@@ -95,6 +116,17 @@ public class EditTabbedPane extends JTabbedPane {
                   }
                }
             });
+   }
+
+   @Override
+   protected void paintComponent(Graphics g) {
+      super.paintComponent(g);
+
+      // Dark background when no editor files are open
+      if (getTabCount() == 0) {
+         g.setColor(new Color(0x1E1E1E));
+         g.fillRect(0, 0, getWidth(), getHeight());
+      }
    }
 
    /**

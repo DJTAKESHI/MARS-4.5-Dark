@@ -10,7 +10,6 @@ import java.text.*;
 import java.util.*;
 import java.io.*;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
-import java.awt.Color;
 
 /*
 Copyright (c) 2003-2006,  Pete Sanderson and Kenneth Vollmar
@@ -62,6 +61,12 @@ public class MainPane extends JTabbedPane {
          Coprocessor1Window cop1Regs, Coprocessor0Window cop0Regs) {
       super();
 
+      System.out.println("Look and Feel: "
+            + UIManager.getLookAndFeel().getClass().getName());
+
+      System.out.println("MainPane UI: "
+            + this.getUI().getClass().getName());
+
       // Dark theme for Edit / Execute tabs
       javax.swing.UIManager.put(
             "TabbedPane.selected",
@@ -70,8 +75,28 @@ public class MainPane extends JTabbedPane {
             "TabbedPane.foreground",
             new Color(0xD4D4D4));
 
-      this.setBackground(new Color(0x252526));
+      this.setBackground(new Color(0x1E1E1E));
       this.setForeground(new Color(0xD4D4D4));
+      this.setOpaque(true);
+
+      // Customize Metal tab colors
+      UIManager.put("TabbedPane.contentAreaColor", new Color(0x1E1E1E));
+      UIManager.put("TabbedPane.selected", new Color(0x37373D));
+      UIManager.put("TabbedPane.unselectedBackground", new Color(0x252526));
+      UIManager.put("TabbedPane.selectHighlight", new Color(0x37373D));
+      UIManager.put("TabbedPane.darkShadow", new Color(0x3C3C3C));
+      UIManager.put("TabbedPane.shadow", new Color(0x3C3C3C));
+
+      // Recreate UI delegate using updated colors
+      // this.setUI(new javax.swing.plaf.metal.MetalTabbedPaneUI() {
+      // @Override
+      // protected void paintContentBorder(
+      // java.awt.Graphics g,
+      // int tabPlacement,
+      // int selectedIndex) {
+      // // Remove Metal's default content border
+      // }
+      // });
 
       this.mainUI = appFrame;
       this.setTabPlacement(JTabbedPane.TOP); // LEFT);
@@ -79,6 +104,7 @@ public class MainPane extends JTabbedPane {
          BasicTabbedPaneUI ui = (BasicTabbedPaneUI) this.getUI();
       }
       editTabbedPane = new EditTabbedPane(appFrame, editor, this);
+      // editTabbedPane.setVisible(false);
       executeTab = new ExecutePane(appFrame, regs, cop1Regs, cop0Regs);
       String editTabTitle = "Edit"; // "<html><center>&nbsp;<br>E<br>d<br>i<br>t<br>&nbsp;</center></html>";
       String executeTabTitle = "Execute"; // "<html><center>&nbsp;<br>E<br>x<br>e<br>c<br>u<br>t<br>e<br>&nbsp;</center></html>";
@@ -89,6 +115,38 @@ public class MainPane extends JTabbedPane {
 
       this.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
       this.addTab(editTabTitle, editTabIcon, editTabbedPane);
+
+      System.out.println("MainPane background: " + this.getBackground());
+      System.out.println("EditTabbedPane background: " + editTabbedPane.getBackground());
+      System.out.println("MainPane opaque: " + this.isOpaque());
+      System.out.println("EditTabbedPane opaque: " + editTabbedPane.isOpaque());
+
+      System.out.println("TabbedPane.background: "
+            + UIManager.getColor("TabbedPane.background"));
+      System.out.println("TabbedPane.contentAreaColor: "
+            + UIManager.getColor("TabbedPane.contentAreaColor"));
+
+      javax.swing.SwingUtilities.invokeLater(() -> {
+         System.out.println("=== MainPane children ===");
+
+         for (Component c : this.getComponents()) {
+            System.out.println(
+                  c.getClass().getName()
+                        + " | background=" + c.getBackground()
+                        + " | visible=" + c.isVisible()
+                        + " | bounds=" + c.getBounds());
+         }
+
+         System.out.println("=== EditTabbedPane children ===");
+
+         for (Component c : editTabbedPane.getComponents()) {
+            System.out.println(
+                  c.getClass().getName()
+                        + " | background=" + c.getBackground()
+                        + " | visible=" + c.isVisible()
+                        + " | bounds=" + c.getBounds());
+         }
+      });
 
       // this.addTab("<html><center>&nbsp;<br>P<br>r<br>o<br>j<br>&nbsp;<br>1<br&nbsp;</center></html>",
       // null, new JTabbedPane());

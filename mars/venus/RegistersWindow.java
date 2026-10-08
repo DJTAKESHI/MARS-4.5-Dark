@@ -77,6 +77,9 @@ public class RegistersWindow extends JPanel implements Observer {
 
       table.setGridColor(new Color(0x3C3C3C));
 
+      // Dark background for empty table area
+      // table.getParent().setBackground(new Color(0x1E1E1E));
+
       // Dark theme for table header
       table.getTableHeader().setBackground(new Color(0x2D2D30));
       table.getTableHeader().setForeground(new Color(0xD4D4D4));
@@ -93,8 +96,16 @@ public class RegistersWindow extends JPanel implements Observer {
             new RegisterCellRenderer(MonoRightCellRenderer.MONOSPACED_PLAIN_12POINT, SwingConstants.RIGHT));
       table.setPreferredScrollableViewportSize(new Dimension(200, 700));
       this.setLayout(new BorderLayout()); // table display will occupy entire width if widened
-      this.add(
-            new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
+      // Dark background for Registers scroll area
+      JScrollPane scrollPane = new JScrollPane(
+            table,
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+      scrollPane.getViewport().setBackground(new Color(0x1E1E1E));
+      scrollPane.setBackground(new Color(0x1E1E1E));
+
+      this.add(scrollPane);
    }
 
    /**
