@@ -113,7 +113,7 @@ public class DataSegmentWindow extends JInternalFrame implements Observer {
       settings.addObserver(this);
 
       homeAddress = Globals.memory.dataBaseAddress; // address for Home button
-      firstAddress = homeAddress; // first address to display at any given time
+      firstAddress = homeAddress; // first address to display at any given times
       userOrKernelMode = USER_MODE;
       addressHighlighting = false;
       contentPane = this.getContentPane();
