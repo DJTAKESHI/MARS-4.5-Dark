@@ -99,7 +99,7 @@ public class DataSegmentWindow extends JInternalFrame implements Observer {
    JButton[] baseAddressButtons;
 
    /**
-    * Constructor for the Data Segment window.
+    * Constructor for the Data Segment window
     * 
     * @param choosers an array of objects used by user to select number display
     *                 base (10 or 16)
